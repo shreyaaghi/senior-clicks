@@ -1,5 +1,11 @@
 ---
+import { supabase } from "../lib/supabase";
 
+const { data: topics, error } = await supabase.from("topics").select("*");
+
+if (error) {
+	console.error("error:", error);
+}
 ---
 
 <html lang="en">
@@ -12,6 +18,20 @@
 		<title>Astro</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<h1>Topics</h1>
+		{
+			topics && topics.length > 0 ? (
+				<ul>
+					{topics.map((topic) => (
+						<li>{topic.title}</li>
+					))}
+				</ul>
+			) : (
+				<p>
+					No topics found (or there was an error — check your
+					terminal).
+				</p>
+			)
+		}
 	</body>
 </html>
