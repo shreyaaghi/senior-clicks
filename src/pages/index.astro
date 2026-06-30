@@ -17,21 +17,20 @@ if (error) {
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro</title>
 	</head>
+	<h1>Home</h1>
 	<body>
-		<h1>Topics</h1>
-		{
-			topics && topics.length > 0 ? (
-				<ul>
-					{topics.map((topic) => (
-						<li>{topic.title}</li>
-					))}
-				</ul>
-			) : (
-				<p>
-					No topics found (or there was an error — check your
-					terminal).
-				</p>
-			)
-		}
+		<ul>
+			{
+				topics != null ? (
+					topics.map((topic) => (
+						<li>
+							<a href={`/topics/${topic.id}`}>{topic.title}</a>
+						</li>
+					))
+				) : (
+					<p>No topics to display</p>
+				)
+			}
+		</ul>
 	</body>
 </html>

@@ -1,0 +1,72 @@
+---
+import { supabase } from '../../lib/supabase';
+import Checklist from '../../components/Checklist';
+
+const { id } = Astro.params;
+
+const { data: topic, error: topicError } = await supabase
+  .from('topics')
+  .select(`
+    id,
+    title,
+    description,
+    modules (
+      id,
+      type,
+      title,
+      order_index
+    )
+  `)
+  .eq('id', id)
+  .order('order_index')
+  .single();
+
+if (topicError) {
+  console.error('Error loading topic:', topicError);
+}
+
+const checklistModule = topic?.modules?.find((m) => m.type === 'checklist');
+
+let checklistItems = [];
+if (checklistModule) {
+  const { data, error: itemsError } = await supabase
+    .from('checklist_items')
+    .select('*')
+    .eq('module_id', checklistModule.id)
+    .order('order_index', { ascending: true });
+
+  if (itemsError) {
+    console.error('Error loading checklist items:', itemsError);
+  } else {
+    checklistItems = data;
+  }
+}
+
+---
+
+<h1>{topic?.title}</h1>
+<p>{topic?.description}</p>
+<li>
+  <a href={`/`}>Home</a>
+</li>
+
+{topic?.modules && topic.modules.length > 0 ? (
+  <ul>
+    {topic.modules
+      .sort((a, b) => a.order_index - b.order_index)
+      .map((module) => (
+        <li>
+          {module.title} ({module.type})
+        </li>
+      ))}
+  </ul>
+) : (
+  <p>No modules yet for this topic.</p>
+)}
+
+{checklistModule && (
+  <div>
+    <h2>{checklistModule.title}</h2>
+    <Checklist items={checklistItems} client:load />
+  </div>
+)}
