@@ -1,6 +1,7 @@
 ---
 import { supabase } from '../../lib/supabase';
 import Checklist from '../../components/Checklist';
+import Glossary from '../../components/Glossary.astro';
 
 const { id } = Astro.params;
 
@@ -42,6 +43,23 @@ if (checklistModule) {
   }
 }
 
+const glossaryModule = topic?.modules?.find((m) => m.type === 'glossary');
+
+let glossaryItems = [];
+if (glossaryModule) {
+  const { data, error: itemsError } = await supabase
+    .from('glossary_items')
+    .select('*')
+    .eq('module_id', glossaryModule.id)
+    .order('order_index', { ascending: true });
+
+  if (itemsError) {
+    console.error('Error loading glossary items:', itemsError);
+  } else {
+    glossaryItems = data;
+  }
+}
+
 ---
 
 <h1>{topic?.title}</h1>
@@ -50,23 +68,16 @@ if (checklistModule) {
   <a href={`/`}>Home</a>
 </li>
 
-{topic?.modules && topic.modules.length > 0 ? (
-  <ul>
-    {topic.modules
-      .sort((a, b) => a.order_index - b.order_index)
-      .map((module) => (
-        <li>
-          {module.title} ({module.type})
-        </li>
-      ))}
-  </ul>
-) : (
-  <p>No modules yet for this topic.</p>
-)}
-
 {checklistModule && (
   <div>
     <h2>{checklistModule.title}</h2>
     <Checklist items={checklistItems} client:load />
+  </div>
+)}
+
+{glossaryModule && (
+  <div>
+    <h2>{glossaryModule.title}</h2>
+    <Glossary items={glossaryItems} />
   </div>
 )}

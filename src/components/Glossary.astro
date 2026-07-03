@@ -1,0 +1,30 @@
+---
+import "../styles/global.css";
+
+type GlossaryItemData = {
+    id: string;
+    term: string;
+    definition: string;
+};
+
+type Props = {
+    items: GlossaryItemData[];
+};
+
+const { items } = Astro.props;
+---
+
+<table class="border">
+    <tr class="border-b-1">
+      <th>Term</th>
+      <th>Definition</th>
+    </tr>
+    {
+        items.map((item) => (
+            <tr id={item.id} class="border-b-1">
+               <td class="border-r-1 px-2 py-2 text-center"><b>{item.term} </b> </td> 
+               <td class="px-2 py-2">{item.definition}</td>
+            </tr>
+        ))
+    }
+  </table>
