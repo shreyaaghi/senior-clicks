@@ -2,6 +2,7 @@
 import { supabase } from '../../lib/supabase';
 import Checklist from '../../components/Checklist';
 import Glossary from '../../components/Glossary.astro';
+import PracticeScenario from '../../components/PracticeScenario';
 
 const { id } = Astro.params;
 
@@ -23,7 +24,7 @@ const { data: topic, error: topicError } = await supabase
   .single();
 
 if (topicError) {
-  console.error('Error loading topic:', topicError);
+  console.error('error loading topic:', topicError);
 }
 
 const checklistModule = topic?.modules?.find((m) => m.type === 'checklist');
@@ -54,9 +55,26 @@ if (glossaryModule) {
     .order('order_index', { ascending: true });
 
   if (itemsError) {
-    console.error('Error loading glossary items:', itemsError);
+    console.error('error loading glossary items:', itemsError);
   } else {
     glossaryItems = data;
+  }
+}
+
+const practiceScenarioModule = topic?.modules?.find((m) => m.type === 'quiz');
+
+let questions = [];
+if (practiceScenarioModule) {
+  const { data, error: itemsError } = await supabase
+    .from('quiz_questions')
+    .select('*, quiz_options(*)')
+    .eq('module_id', practiceScenarioModule.id)
+    .order('order_index', { ascending: true });
+
+  if (itemsError) {
+    console.error('error loading quiz items:', itemsError);
+  } else {
+    questions = data;
   }
 }
 
@@ -79,5 +97,12 @@ if (glossaryModule) {
   <div>
     <h2>{glossaryModule.title}</h2>
     <Glossary items={glossaryItems} />
+  </div>
+)}
+
+{practiceScenarioModule && (
+  <div>
+    <h2>{practiceScenarioModule.title}</h2>
+    <PracticeScenario questions={questions} client:load />
   </div>
 )}
