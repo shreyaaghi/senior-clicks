@@ -3,6 +3,7 @@ import { supabase } from '../../lib/supabase';
 import Checklist from '../../components/Checklist';
 import Glossary from '../../components/Glossary.astro';
 import PracticeScenario from '../../components/PracticeScenario';
+import ZoomJoinCall from '../../components/simulations/ZoomJoinCall';
 
 const { id } = Astro.params;
 
@@ -78,6 +79,8 @@ if (practiceScenarioModule) {
   }
 }
 
+const simulationModule = topic?.modules?.find((m) => m.type === 'simulation');
+
 ---
 
 <h1>{topic?.title}</h1>
@@ -104,5 +107,12 @@ if (practiceScenarioModule) {
   <div>
     <h2>{practiceScenarioModule.title}</h2>
     <PracticeScenario questions={questions} client:load />
+  </div>
+)}
+
+{simulationModule && (
+  <div>
+    <h2>{simulationModule.title}</h2>
+    <ZoomJoinCall client:load></ZoomJoinCall>
   </div>
 )}
