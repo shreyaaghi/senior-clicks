@@ -88,31 +88,36 @@ const simulationModule = topic?.modules?.find((m) => m.type === 'simulation');
 <li>
   <a href={`/`}>Home</a>
 </li>
+<br />
 
 {checklistModule && (
   <div>
-    <h2>{checklistModule.title}</h2>
+    <h2 class="font-bold">{checklistModule.title}</h2>
     <Checklist items={checklistItems} client:load />
   </div>
+  <br />
 )}
 
 {glossaryModule && (
   <div>
-    <h2>{glossaryModule.title}</h2>
+    <h2 class="font-bold">{glossaryModule.title}</h2>
     <Glossary items={glossaryItems} />
   </div>
+  <br />
 )}
 
 {practiceScenarioModule && (
   <div>
-    <h2>{practiceScenarioModule.title}</h2>
+    <h2 class="font-bold">{practiceScenarioModule.title}</h2>
     <PracticeScenario questions={questions} client:load />
   </div>
+  <br />
 )}
 
 {simulationModule && (
   <div>
-    <h2>{simulationModule.title}</h2>
+    <h2 class="font-bold">{simulationModule.title}</h2>
     <ZoomJoinCall client:load></ZoomJoinCall>
   </div>
+  <br />
 )}

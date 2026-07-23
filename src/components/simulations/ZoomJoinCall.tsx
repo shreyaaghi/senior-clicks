@@ -1,6 +1,13 @@
 import { useState } from 'react';
 
-const steps = [
+type Step = {
+    instruction: string;
+    correctTarget: string;
+    feedbackCorrect: string;
+    feedbackIncorrect: { [key: string]: string };
+}
+
+const steps: Step[] = [
     {
         instruction: "Your healthcare provider sent you a meeting link with a 'meeting ID' included. What do you click to join?",
         correctTarget: 'Join',
@@ -31,37 +38,33 @@ const steps = [
 
 export default function ZoomJoinCall() {
     const [currentStepIndex, setCurrentStepIndex] = useState(0);
-    const [selectedButton, setSelectedButton] = useState<string | null>(null);
     const [hasAnswered, setHasAnswered] = useState(false);
+    const [feedbackText, setFeedbackText] = useState('');
+    const [isCorrect, setIsCorrect] = useState(false);
     const [isComplete, setIsComplete] = useState(false);
-    const [feedbackText, setFeedbackText] = useState(false);
 
     const currentStep = steps[currentStepIndex];
-    const isLastStep = currentStepIndex === steps.length - 1;
 
-    const handleButtonClick = (label: string) => {
+    const handleClick = (buttonLabel: string) => {
         if (hasAnswered) return;
-        setSelectedButton(label);
+        const correct = buttonLabel === currentStep.correctTarget;
+        setIsCorrect(correct);
+        setFeedbackText(
+            correct ? currentStep.feedbackCorrect : currentStep.feedbackIncorrect[buttonLabel]
+        )
         setHasAnswered(true);
     };
 
     const handleNext = () => {
-        if (isLastStep) {
+        if (currentStepIndex === steps.length - 1) {
             setIsComplete(true);
         } else {
             setCurrentStepIndex(currentStepIndex + 1);
-            setSelectedButton(null);
             setHasAnswered(false);
+            setFeedbackText('');
+            setIsCorrect(false);
         }
-    };
-
-    // const renderCurrentScreen = () => {
-    //     switch(currentStepIndex) {
-    //         case 0: return <ZoomHomeScreen onButtonClick={handleButtonClick} />;
-    //         case 1: return <ZoomJoinScreen onButtonClick={handleButtonClick} />;
-    //         case 2: return <ZoomAudioScreen onButtonClick={handleButtonClick} />;
-    //     }
-    // }
+    }
 
     if (isComplete) {
         return (
@@ -71,28 +74,48 @@ export default function ZoomJoinCall() {
         );
     }
 
-    return (
-        <div> /* phone frame */
-            <div> /* status bar */
-                <div>/* header */
-                    <div> /* icon grid */
-                        <button onClick={() => handleButtonClick('Meet')}>Meet</button>
-                        <button onClick={() => handleButtonClick('Join')}>Join</button>
-                        <button onClick={() => handleButtonClick('Schedule')}>Schedule</button>
-                        <button onClick={() => handleButtonClick('Share')}>Share</button>
-                        <div> /* bottom nav bar */
-            <p>Step {currentStepIndex + 1} of {steps.length}</p>
-            <p>{currentStep.instruction}</p>
-
-            {hasAnswered && (
-                <div className="feedback-banner">
-                    {feedbackText}
-                </div>
-            )}
-                        </div>
+    const renderCurrentScreen = () => {
+        if (currentStepIndex === 0) {
+            return (
+                <div className="flex bg-[#1c1c1e] rounded-xl w-80 p-5"
+                style ={{
+                    fontFamily: 'sans-serif',
+                    color: 'white',
+                }}>
+                    <div style = {{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        fontSize: '12px',
+                        marginBottom: '16px'
+                    }}>
+                        <span>9:24</span>
+                        <span>📶 🔋</span>
                     </div>
                 </div>
-            </div>
+            )
+        }
+    }
+
+    return (
+        <div> 
+            <p>
+                {currentStep.instruction}
+            </p>
+
+            {renderCurrentScreen()}
+
+            {hasAnswered && (
+                <div>
+                    <p>
+                        {feedbackText}
+                    </p>
+                    {isCorrect && (
+                        <button onClick={handleNext}>
+                            {currentStepIndex === steps.length - 1 ? 'Finish' : 'Next Step'}
+                        </button>
+                    )}
+                </div>
+            )}
         </div>
     );
 }

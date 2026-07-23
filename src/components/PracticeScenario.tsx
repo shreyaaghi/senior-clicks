@@ -43,7 +43,8 @@ export default function PracticeScenario({ questions }: PracticeScenarioProps) {
       <ul>
         {currentQuestion.quiz_options.map((option) => (
           <li key={option.id}>
-            <button onClick={() => handleSelectOption(option.id)}>{option.option_text}</button>
+            <button className="p-5 rounded-lg bg-[#b1e5f2] hover:bg-[#223d94] text-white font-bold" 
+            onClick={() => handleSelectOption(option.id)}>{option.option_text}</button>
 
             {hasAnswered && selectedOptionId === option.id && (<p>{option.feedback_text}</p>)}
           </li>
