@@ -46,7 +46,7 @@ export default function ZoomJoinCall() {
     const currentStep = steps[currentStepIndex];
 
     const handleClick = (buttonLabel: string) => {
-        if (hasAnswered) return;
+        if (isCorrect) return;
         const correct = buttonLabel === currentStep.correctTarget;
         setIsCorrect(correct);
         setFeedbackText(
@@ -77,19 +77,76 @@ export default function ZoomJoinCall() {
     const renderCurrentScreen = () => {
         if (currentStepIndex === 0) {
             return (
-                <div className="flex bg-[#1c1c1e] rounded-xl w-80 p-5"
-                style ={{
-                    fontFamily: 'sans-serif',
-                    color: 'white',
-                }}>
-                    <div style = {{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        fontSize: '12px',
-                        marginBottom: '16px'
-                    }}>
+                <div className="relative flex flex-col bg-[#1c1c1e] rounded-xl w-80 h-[500px] pb-20 p-5 font-sans text-white overflow-hidden mx-auto">
+                    {/* status bar */}
+                    <div className="flex justify-between mb-4 text-xs font-bold">
                         <span>9:24</span>
                         <span>📶 🔋</span>
+                    </div>
+                    {/* header */}
+                    <div className="flex justify-between text-md">
+                        <span>Home</span>
+                        <span>🔍</span>
+                    </div>
+                    {/* icon grid */}
+                    <div className="grid grid-cols-2 gap-4 mt-4 mx-2">
+                        {[
+                            { label: 'Meet', bgClass: 'bg-[#F26D21]', emoji: '📞' },
+                            { label: 'Join', bgClass: 'bg-[#1A3Ff5]', emoji: '👥' },
+                            { label: 'Schedule', bgClass: 'bg-[#1A3Ff5]', emoji: '🗓️' },
+                            { label: 'Share', bgClass: 'bg-[#1A3Ff5]', emoji: '🖥️' }
+                        ].map(({label, bgClass, emoji}) => (
+                            <button key={label} onClick={() => handleClick(label)} className={`rounded-md ${bgClass} p-3 font-bold hover:bg-[#1e3f70]`}>
+                                <span className="text-lg">{emoji} </span>
+                                {label}
+                            </button>
+                        ))}
+                    </div>
+                    {/* nav bar */}
+                    <div className="absolute bottom-0 left-0 right-0 flex justify-around mt-50 bg-[#121212] rounded-lg border-t border-[#333] py-3 px-4" >
+                        <div className="flex flex-col items-center">
+                            <span>🏠</span>
+                            <span className="text-sm">Home</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                            <span>💬</span>
+                            <span className="text-sm">Chat</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                            <span>📧</span>
+                            <span className="text-sm">Mail</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                            <span>📅</span>
+                            <span className="text-sm">Calendar</span>
+                        </div>
+                    </div>
+                </div>
+            )
+        } else if (currentStepIndex === 1) {
+            return (
+                <div className="relative flex flex-col bg-[#1c1c1e] rounded-xl w-80 h-[500px] pb-20 p-5 font-sans text-white overflow-hidden mx-auto">
+                    {/* status bar */}
+                    <div className="flex justify-between mb-4 text-xs font-bold">
+                        <span>9:24</span>
+                        <span>📶 🔋</span>
+                    </div>
+                    {/* header */}
+                    <div className="grid grid-cols-3 items-center text-md">
+                        <button onClick={() => handleClick('Cancel')} className="justify-self-start">Cancel</button>
+                        <span className="font-bold justify-self-center whitespace-nowrap">Join Meeting</span>
+                        <div></div>
+                    </div>
+                    {/* meeting id enter */}
+                    <div className="my-4">
+                        <p className="text-xs text-white font-bold mb-1">Meeting ID</p>
+                        <p className="text-white bg-[#888] w-68">123 4567 8910</p>
+                    </div>
+                    {/* join button */}
+                    <div className="">
+                            <button onClick={() => handleClick('Join')} className="rounded-md bg-[#1A3Ff5] p-2 px-30 font-bold hover:bg-[#1e3f70]">
+                                Join
+                            </button>
                     </div>
                 </div>
             )

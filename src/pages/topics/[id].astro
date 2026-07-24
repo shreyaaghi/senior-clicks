@@ -21,7 +21,6 @@ const { data: topic, error: topicError } = await supabase
     )
   `)
   .eq('id', id)
-  .order('order_index')
   .single();
 
 if (topicError) {
@@ -82,42 +81,41 @@ if (practiceScenarioModule) {
 const simulationModule = topic?.modules?.find((m) => m.type === 'simulation');
 
 ---
-
-<h1>{topic?.title}</h1>
-<p>{topic?.description}</p>
-<li>
+<div class="flex flex-col items-center w-full px-8 py-8">
+  <h1>{topic?.title}</h1>
+  <p>{topic?.description}</p>
   <a href={`/`}>Home</a>
-</li>
-<br />
-
-{checklistModule && (
-  <div>
+  <br />
+  
+  {checklistModule && (
+    <div class="w-full max-w-2xl">
     <h2 class="font-bold">{checklistModule.title}</h2>
     <Checklist items={checklistItems} client:load />
   </div>
   <br />
-)}
+  )}
 
-{glossaryModule && (
-  <div>
-    <h2 class="font-bold">{glossaryModule.title}</h2>
-    <Glossary items={glossaryItems} />
-  </div>
-  <br />
-)}
+  {glossaryModule && (
+    <div class="w-full max-w-2xl">
+      <h2 class="font-bold">{glossaryModule.title}</h2>
+      <Glossary items={glossaryItems} />
+    </div>
+    <br />
+  )}
 
-{practiceScenarioModule && (
-  <div>
-    <h2 class="font-bold">{practiceScenarioModule.title}</h2>
-    <PracticeScenario questions={questions} client:load />
-  </div>
-  <br />
-)}
+  {practiceScenarioModule && (
+    <div class="w-full max-w-2xl">
+      <h2 class="font-bold">{practiceScenarioModule.title}</h2>
+      <PracticeScenario questions={questions} client:load />
+    </div>
+    <br />
+  )}
 
-{simulationModule && (
-  <div>
-    <h2 class="font-bold">{simulationModule.title}</h2>
-    <ZoomJoinCall client:load></ZoomJoinCall>
-  </div>
-  <br />
-)}
+  {simulationModule && (
+    <div class="flex flex-col items-center w-full">
+      <h2 class="font-bold">{simulationModule.title}</h2>
+      <ZoomJoinCall client:load></ZoomJoinCall>
+    </div>
+    <br />
+  )}
+</div>
