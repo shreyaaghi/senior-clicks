@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 type Step = {
     instruction: string;
@@ -38,7 +38,6 @@ const steps: Step[] = [
 
 export default function ZoomJoinCall() {
     const [currentStepIndex, setCurrentStepIndex] = useState(0);
-    const [hasAnswered, setHasAnswered] = useState(false);
     const [showFeedback, setShowFeedback] = useState(false);
     const [feedbackText, setFeedbackText] = useState('');
     const [isCorrect, setIsCorrect] = useState(false);
@@ -54,11 +53,21 @@ export default function ZoomJoinCall() {
             correct ? currentStep.feedbackCorrect : currentStep.feedbackIncorrect[buttonLabel]
         )
         setShowFeedback(true);
-
-        if(!correct) {
-            setTimeout(() => setShowFeedback(false), 5000);
-        }
     };
+
+    useEffect(()=> {
+        if (!showFeedback ||  isCorrect) return;
+        const handleDismissClick = () => {
+            setShowFeedback(false);
+        };
+        const timeoutId = setTimeout(() => {
+            document.addEventListener('click', handleDismissClick);
+        }, 0);
+        return () => {
+            clearTimeout(timeoutId);
+            document.removeEventListener('click', handleDismissClick);
+        };
+    }, [showFeedback, isCorrect]);
 
     const handleNext = () => {
         if (currentStepIndex === steps.length - 1) {

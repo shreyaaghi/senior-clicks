@@ -25,6 +25,10 @@ export default function PracticeScenario({ questions }: PracticeScenarioProps) {
   const currentQuestion = questions[currentIndex];
   const isLastQuestion = currentIndex === questions.length - 1;
 
+  if (!questions || questions.length === 0) {
+    return <p>No questions available yet.</p>;
+  }
+
   const handleSelectOption = (optionId: string) => {
     if (hasAnswered) return;
     setSelectedOptionId(optionId);

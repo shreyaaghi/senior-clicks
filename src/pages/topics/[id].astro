@@ -4,6 +4,7 @@ import Checklist from '../../components/Checklist';
 import Glossary from '../../components/Glossary.astro';
 import PracticeScenario from '../../components/PracticeScenario';
 import ZoomJoinCall from '../../components/simulations/ZoomJoinCall';
+import ScamFraudSim from '../../components/simulations/ScamFraudSim';
 
 const { id } = Astro.params;
 
@@ -114,7 +115,8 @@ const simulationModule = topic?.modules?.find((m) => m.type === 'simulation');
   {simulationModule && (
     <div class="flex flex-col items-center w-full">
       <h2 class="font-bold">{simulationModule.title}</h2>
-      <ZoomJoinCall client:load></ZoomJoinCall>
+      {id === '1' && <ZoomJoinCall client:load/>}
+      {id === '2' && <ScamFraudSim client:load/>}
     </div>
     <br />
   )}
