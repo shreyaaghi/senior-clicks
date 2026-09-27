@@ -1,0 +1,43 @@
+---
+interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content={Astro.generator} />
+        <link rel="icon" type="image/svg+xml" href="/faviconSC.svg" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="/src/styles/global.css" />
+        <title>{title}</title>
+    </head>
+    <body>
+        <nav class="bg-sc-navy px-8 py-4 flex justify-between items-center">
+            <a
+                href="/"
+                class="font-lexend font-bold text-white text-xl tracking-tight"
+            >
+                Senior Clicks
+            </a>
+            <a
+                href="/"
+                class="text-sc-periwinkle text-sm font-opensans hover:text-white transition-colors"
+            >
+                About
+            </a>
+        </nav>
+
+        <slot />
+    </body>
+</html>

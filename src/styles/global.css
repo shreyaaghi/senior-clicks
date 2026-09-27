@@ -1,6 +1,27 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap');
 
-/* add brand colors */
 @theme {
+  --color-sc-navy: #223D94;
+  --color-sc-periwinkle: #B1C5F2;
+  --color-sc-sky: #B1E5F2;
+  --color-sc-light: #D7DEED;
+  --color-sc-white: #FCFDFE;
+  --color-sc-gray-mid: #CECECE;
+  --color-sc-gray: #A6A6A8;
+  --color-sc-dark: #2B364D;
+  --color-sc-darkest: #1C1F27;
 
+  --font-lexend: 'Lexend', sans-serif;
+  --font-opensans: 'Open Sans', sans-serif;
 }
+
+body {
+    background-color: var(--color-sc-white);
+    color: var(--color-sc-darkest);
+    font-family: var(--font-opensans);
+  }
+  
+  h1, h2, h3, h4 {
+    font-family: var(--font-lexend);
+  }

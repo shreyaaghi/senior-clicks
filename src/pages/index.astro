@@ -1,5 +1,6 @@
 ---
 import { supabase } from "../lib/supabase";
+import Layout from "../layouts/Layout.astro";
 
 const { data: topics, error } = await supabase.from("topics").select("*");
 
@@ -8,29 +9,46 @@ if (error) {
 }
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<h1>Home</h1>
-	<body>
-		<ul>
-			{
-				topics != null ? (
-					topics.map((topic) => (
-						<li>
-							<a href={`/topics/${topic.id}`}>{topic.title}</a>
-						</li>
-					))
-				) : (
-					<p>No topics to display</p>
-				)
-			}
-		</ul>
-	</body>
-</html>
+<Layout title="Senior Clicks">
+	<section class="bg-sc-navy px-8 py-20 flex flex-col items-center text-center gap-6">
+	  <h1 class="text-white text-5xl font-lexend font-bold max-w-2xl leading-tight">
+		Building confidence, one click at a time.
+	  </h1>
+	  <p class="text-sc-periwinkle text-xl max-w-xl">
+		Free workshops and interactive guides designed for seniors.
+	  </p>
+  
+	  <div class="mt-4 flex flex-col items-center gap-4 max-w-xl w-full">
+		<p class="text-sc-light text-base">
+		  Senior Clicks offers free, in-person technology workshops at libraries and senior centers across the Bay Area.
+		</p>
+		{/* add links, buttons, stats etc. here */}
+	  </div>
+	</section>
+  
+	<section class="px-8 py-16 max-w-5xl mx-auto">
+		
+		<h2 class="text-sc-navy font-lexend font-bold text-3xl mb-8">
+		  Workshop Topics
+		</h2>
+	  
+		{topics == null ? (
+		  <p class="text-sc-gray">No topics available yet.</p>
+		) : (
+		  <ul class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+			{topics.map((topic) => (
+			  <li key={topic.id}>
+				<a href={`/topics/${topic.id}`} class="block bg-sc-light rounded-xl p-6 hover:bg-sc-periwinkle transition-colors">
+				  <h3 class="text-sc-navy font-lexend font-semibold text-xl mb-2">
+					{topic.title}
+				  </h3>
+				  <p class="text-sc-dark text-sm">
+					{topic.description}
+				  </p>
+				</a>
+			  </li>
+			))}
+		  </ul>
+		)}
+	  </section>
+  </Layout>
