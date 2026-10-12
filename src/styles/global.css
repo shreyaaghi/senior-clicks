@@ -20,6 +20,8 @@ body {
     background-color: var(--color-sc-white);
     color: var(--color-sc-darkest);
     font-family: var(--font-opensans);
+    /* font-size: 1.125rem; */
+    line-height:1.7;
   }
   
   h1, h2, h3, h4 {

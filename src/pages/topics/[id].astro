@@ -105,17 +105,32 @@ const simulationModule = topic?.modules?.find((m) => m.type === 'simulation');
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div class="flex flex-col gap-2">
           <p class="text-sc-dark text-sm font-semibold">Recording</p>
-          <YouTube id="5gfhbjug9rI" />
+          {id === '1' && <YouTube id="5gfhbjug9rI" />}
+          {id === '2' && <YouTube id="5gfhbjug9rI" />}
+          {id === '3' && <YouTube id="5gfhbjug9rI" />}
+          {id === '4' && <YouTube id="5gfhbjug9rI" />}
         </div>
         <div class="flex flex-col gap-2">
           <p class="text-sc-dark text-sm font-semibold">Slides</p>
-          <iframe
-            src="https://docs.google.com/presentation/d/e/2PACX-1vTzlK2aTukIU14k99LGKLkYNHvwXxw-PDx752Y0YbGRKaC0ADEiqdurgGHjQZiPXUxLjgbfkfj9xYmh/pubembed?start=false&loop=false&delayms=60000"
-            width="100%"
-            height="220"
-            allowfullscreen="true"
-            class="rounded-xl border border-sc-light"
-          ></iframe>
+          {id === '1' && <iframe
+          src="https://docs.google.com/presentation/d/e/2PACX-1vTzlK2aTukIU14k99LGKLkYNHvwXxw-PDx752Y0YbGRKaC0ADEiqdurgGHjQZiPXUxLjgbfkfj9xYmh/pubembed?start=false&loop=false&delayms=60000" width="100%" height="220" allowfullscreen="true" class="rounded-xl border border-sc-light"
+          />
+          }
+          {id === '2' && 
+          <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTzlK2aTukIU14k99LGKLkYNHvwXxw-PDx752Y0YbGRKaC0ADEiqdurgGHjQZiPXUxLjgbfkfj9xYmh/pubembed?start=false&loop=false&delayms=60000" width="100%" height="220" allowfullscreen="true" class="rounded-xl border border-sc-light"/>
+          }
+          {id === '3' && <iframe
+        src="https://docs.google.com/presentation/d/e/2PACX-1vTzlK2aTukIU14k99LGKLkYNHvwXxw-PDx752Y0YbGRKaC0ADEiqdurgGHjQZiPXUxLjgbfkfj9xYmh/pubembed?start=false&loop=false&delayms=60000"
+        width="100%"
+        height="220"
+        allowfullscreen="true"
+        class="rounded-xl border border-sc-light"
+          />
+          }
+          {id === '4' && 
+          <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSz974RWQJE_0PntSAIqCJ6WFQlJO2IK3hBSvGJDxm1BjbD-cSYWFdMAeRxZoFQDD_yOzb7Dl9wu0hh/pubembed?start=false&loop=false&delayms=60000"
+          width="100%" height="220" allowfullscreen="true" class="rounded-xl border border-sc-light"/>
+          }
         </div>
       </div>
     </section>

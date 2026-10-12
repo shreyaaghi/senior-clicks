@@ -22,12 +22,14 @@ export default function PracticeScenario({ questions }: PracticeScenarioProps) {
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const [hasAnswered, setHasAnswered] = useState(false);
 
+  if (!questions || questions.length === 0) {
+    return <p className="text-sc-gray text-sm">No questions available yet.</p>;
+  }
+  
   const currentQuestion = questions[currentIndex];
   const isLastQuestion = currentIndex === questions.length - 1;
+  const selectedOption = currentQuestion.quiz_options.find(o => o.id === selectedOptionId);
 
-  if (!questions || questions.length === 0) {
-    return <p>No questions available yet.</p>;
-  }
 
   const handleSelectOption = (optionId: string) => {
     if (hasAnswered) return;
@@ -41,25 +43,40 @@ export default function PracticeScenario({ questions }: PracticeScenarioProps) {
     setHasAnswered(false);
   }
 
+  const getButtonStyle = (option: QuizOption) => {
+    if(!hasAnswered) {
+      return 'bg-white border-2 border-sc-light text-sc-darkest hover:border-sc-navy hover:bg-sc-light';
+    }
+    if (option.id === selectedOptionId) {
+      return option.is_correct ? 'bg-green-50 border-2 border-green-500 text-green-800' : 'bg-red-50 border-2 border-red-400 text-red-800';
+    }
+    if (option.is_correct && hasAnswered) {
+      return 'bg-green-50 border-2 border-green-500 text-green-800';
+    }
+    return 'bg-white border-2 border-sc-light text-sc-gray opacity-50';
+  }
+
   return (
-    <div>
-      <p>{currentQuestion.question_text}</p>
-      <ul>
+    <div className="flex flex-col gap-6">
+      <p className="text-sc-darkest text-lg font-semibold leading-snug">{currentQuestion.question_text}</p>
+
+      <ul className="flex flex-col gap-3">
         {currentQuestion.quiz_options.map((option) => (
           <li key={option.id}>
-            <button className="p-5 rounded-lg bg-[#b1e5f2] hover:bg-[#223d94] text-white font-bold" 
+            <button className={`w-full text-left px-5 py-4 rounded-xl text-base font-medium transition-colors ${getButtonStyle(option)}`} 
             onClick={() => handleSelectOption(option.id)}>{option.option_text}</button>
-
-            {hasAnswered && selectedOptionId === option.id && (<p>{option.feedback_text}</p>)}
           </li>
         ))}
       </ul>
+      {hasAnswered && selectedOption && (
+        <div className={`rounded-xl px-5 py-4 text-sm ${selectedOption.is_correct ? 'bg-green-50 text-green-800 border border-green-200' : 'bg-red-50 text-red-800 border border-red-200'}`}>{selectedOption.feedback_text}</div>
+      )}
 
       {hasAnswered && (
         isLastQuestion ? (
-        <p>Finished, good job!</p>
+        <p className="text-sc-navy font-lexend font-semibold text-center">Finished, good job!</p>
       ) : (
-        <button onClick={handleNext}>Next Question</button>
+        <button onClick={handleNext} className="self-start bg-sc-navy text-white font-semibold px-6 py-3 rounded-xl hover:bg-sc-dark transition-colors">Next Question</button>
         )
       )}
     </div>

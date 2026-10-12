@@ -1,6 +1,4 @@
 ---
-import "../styles/global.css";
-
 type GlossaryItemData = {
     id: string;
     term: string;
@@ -14,17 +12,11 @@ type Props = {
 const { items } = Astro.props;
 ---
 
-<table class="border">
-    <tr class="border-b-1">
-      <th>Term</th>
-      <th>Definition</th>
-    </tr>
-    {
-        items.map((item) => (
-            <tr id={item.id} class="border-b-1">
-               <td class="border-r-1 px-2 py-2 text-center"><b>{item.term} </b> </td> 
-               <td class="px-2 py-2">{item.definition}</td>
-            </tr>
-        ))
-    }
-  </table>
+<ul class="flex flex-col gap-3">
+    {items.map((item) => (
+        <li class="bg-white rounded-xl border-2 border-sc-light px-6 py-4 flex flex-col gap-1">
+            <span class="text-sc-navy font-lexend font-bold text-lg"> {item.term}</span>
+            <span class="text-sc-darkest text-base leading-snug">{item.definition}</span>
+        </li>
+    ))}
+</ul>
