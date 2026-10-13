@@ -86,7 +86,6 @@ const simulationModule = topic?.modules?.find((m) => m.type === 'simulation');
 ---
 <Layout title={topic?.title ?? 'Senior Clicks'}>
 
-  {/* topic hero */}
   <section class="bg-sc-navy px-8 py-16 text-center">
     <h1 class="text-white font-lexend text-4xl font-bold mb-3">
       {topic?.title}
@@ -96,46 +95,59 @@ const simulationModule = topic?.modules?.find((m) => m.type === 'simulation');
     </p>
   </section>
 
-  {/* page content */}
   <div class="max-w-3xl mx-auto px-8 py-12 flex flex-col gap-12">
-
-    {/* resources — side by side */}
-    <section class="flex flex-col gap-4">
+    <section class="flex flex-col gap-6">
       <h2 class="text-sc-navy font-lexend font-bold text-2xl">Workshop Recording & Slides</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div class="flex flex-col gap-2">
-          <p class="text-sc-dark text-sm font-semibold">Recording</p>
-          {id === '1' && <YouTube id="5gfhbjug9rI" />}
-          {id === '2' && <YouTube id="5gfhbjug9rI" />}
-          {id === '3' && <YouTube id="5gfhbjug9rI" />}
-          {id === '4' && <YouTube id="5gfhbjug9rI" />}
-        </div>
-        <div class="flex flex-col gap-2">
-          <p class="text-sc-dark text-sm font-semibold">Slides</p>
-          {id === '1' && <iframe
-          src="https://docs.google.com/presentation/d/e/2PACX-1vTzlK2aTukIU14k99LGKLkYNHvwXxw-PDx752Y0YbGRKaC0ADEiqdurgGHjQZiPXUxLjgbfkfj9xYmh/pubembed?start=false&loop=false&delayms=60000" width="100%" height="220" allowfullscreen="true" class="rounded-xl border border-sc-light"
+      
+      <div class="flex flex-col gap-2">
+        <p class="text-sc-dark text-md font-semibold">Recording</p>
+        {id === '1' && <YouTube id="5gfhbjug9rI" />}
+        {id === '2' && <YouTube id="5gfhbjug9rI" />}
+        {id === '3' && <YouTube id="5gfhbjug9rI" />}
+        {id === '4' && <YouTube id="5gfhbjug9rI" />}
+      </div>
+    
+      <div class="flex flex-col gap-2">
+        <p class="text-sc-dark text-md font-semibold">Slides</p>
+        {id === '1' && (
+          <iframe
+            src="https://docs.google.com/presentation/d/e/2PACX-1vT4dDW7RFCohGZiuPnNeSrYZvJlpwzhRtS4B9ByS1jBJbGH7Rt3JxRMxmM4GO4nqlVAsC9Htdf6D9RI/pubembed?start=false&loop=false&delayms=60000"
+            width="100%"
+            height="480"
+            allowfullscreen="true"
+            class="rounded-xl border border-sc-light"
           />
-          }
-          {id === '2' && 
-          <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTzlK2aTukIU14k99LGKLkYNHvwXxw-PDx752Y0YbGRKaC0ADEiqdurgGHjQZiPXUxLjgbfkfj9xYmh/pubembed?start=false&loop=false&delayms=60000" width="100%" height="220" allowfullscreen="true" class="rounded-xl border border-sc-light"/>
-          }
-          {id === '3' && <iframe
-        src="https://docs.google.com/presentation/d/e/2PACX-1vTzlK2aTukIU14k99LGKLkYNHvwXxw-PDx752Y0YbGRKaC0ADEiqdurgGHjQZiPXUxLjgbfkfj9xYmh/pubembed?start=false&loop=false&delayms=60000"
-        width="100%"
-        height="220"
-        allowfullscreen="true"
-        class="rounded-xl border border-sc-light"
+        )}
+        {id === '2' && (
+          <iframe
+            src="https://docs.google.com/presentation/d/e/2PACX-1vTzlK2aTukIU14k99LGKLkYNHvwXxw-PDx752Y0YbGRKaC0ADEiqdurgGHjQZiPXUxLjgbfkfj9xYmh/pubembed?start=false&loop=false&delayms=60000"
+            width="100%"
+            height="480"
+            allowfullscreen="true"
+            class="rounded-xl border border-sc-light"
           />
-          }
-          {id === '4' && 
-          <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSz974RWQJE_0PntSAIqCJ6WFQlJO2IK3hBSvGJDxm1BjbD-cSYWFdMAeRxZoFQDD_yOzb7Dl9wu0hh/pubembed?start=false&loop=false&delayms=60000"
-          width="100%" height="220" allowfullscreen="true" class="rounded-xl border border-sc-light"/>
-          }
-        </div>
+        )}
+        {id === '3' && (
+          <iframe
+            src="https://docs.google.com/presentation/d/e/2PACX-1vTzlK2aTukIU14k99LGKLkYNHvwXxw-PDx752Y0YbGRKaC0ADEiqdurgGHjQZiPXUxLjgbfkfj9xYmh/pubembed?start=false&loop=false&delayms=60000"
+            width="100%"
+            height="480"
+            allowfullscreen="true"
+            class="rounded-xl border border-sc-light"
+          />
+        )}
+        {id === '4' && (
+          <iframe
+            src="https://docs.google.com/presentation/d/e/2PACX-1vSz974RWQJE_0PntSAIqCJ6WFQlJO2IK3hBSvGJDxm1BjbD-cSYWFdMAeRxZoFQDD_yOzb7Dl9wu0hh/pubembed?start=false&loop=false&delayms=60000"
+            width="100%"
+            height="480"
+            allowfullscreen="true"
+            class="rounded-xl border border-sc-light"
+          />
+        )}
       </div>
     </section>
 
-    {/* checklist */}
     {checklistModule && (
       <section class="bg-white rounded-2xl border border-sc-light p-8 flex flex-col gap-4">
         <div class="flex items-center gap-3">
@@ -149,7 +161,6 @@ const simulationModule = topic?.modules?.find((m) => m.type === 'simulation');
       </section>
     )}
 
-    {/* glossary */}
     {glossaryModule && (
       <section class="bg-sc-light rounded-2xl border border-sc-light p-8 flex flex-col gap-4">
         <div class="flex items-center gap-3">
@@ -163,7 +174,6 @@ const simulationModule = topic?.modules?.find((m) => m.type === 'simulation');
       </section>
     )}
 
-    {/* practice scenario */}
     {practiceScenarioModule && (
       <section class="bg-white rounded-2xl border border-sc-light p-8 flex flex-col gap-4">
         <div class="flex items-center gap-3">
@@ -177,7 +187,6 @@ const simulationModule = topic?.modules?.find((m) => m.type === 'simulation');
       </section>
     )}
 
-    {/* simulation */}
     {simulationModule && (
       <section class="bg-sc-light rounded-2xl border border-sc-light p-8 flex flex-col gap-6 items-center">
         <div class="flex items-center gap-3 w-full">
