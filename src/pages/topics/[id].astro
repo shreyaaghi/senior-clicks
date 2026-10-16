@@ -101,7 +101,7 @@ const simulationModule = topic?.modules?.find((m) => m.type === 'simulation');
       
       <div class="flex flex-col gap-2">
         <p class="text-sc-dark text-md font-semibold">Recording</p>
-        {id === '1' && <YouTube id="5gfhbjug9rI" />}
+        {id === '1' && <YouTube id="MNn5IP1lfKE" />}
         {id === '2' && <YouTube id="5gfhbjug9rI" />}
         {id === '3' && <YouTube id="5gfhbjug9rI" />}
         {id === '4' && <YouTube id="5gfhbjug9rI" />}
@@ -156,7 +156,7 @@ const simulationModule = topic?.modules?.find((m) => m.type === 'simulation');
           </span>
           <h2 class="text-sc-navy font-lexend font-bold text-2xl">{checklistModule.title}</h2>
         </div>
-        <p class="text-sc-gray text-sm">Work through this checklist before your first call.</p>
+        <p class="text-sc-black text-sm">Work through this checklist before your first call.</p>
         <Checklist items={checklistItems} client:load />
       </section>
     )}
@@ -169,7 +169,7 @@ const simulationModule = topic?.modules?.find((m) => m.type === 'simulation');
           </span>
           <h2 class="text-sc-navy font-lexend font-bold text-2xl">{glossaryModule.title}</h2>
         </div>
-        <p class="text-sc-gray text-sm">Familiarize yourself with these key terms before getting started.</p>
+        <p class="text-sc-black text-sm">Familiarize yourself with these key terms before getting started.</p>
         <Glossary items={glossaryItems} />
       </section>
     )}
@@ -182,7 +182,7 @@ const simulationModule = topic?.modules?.find((m) => m.type === 'simulation');
           </span>
           <h2 class="text-sc-navy font-lexend font-bold text-2xl">{practiceScenarioModule.title}</h2>
         </div>
-        <p class="text-sc-gray text-sm">Test what you know with these low-stakes practice questions.</p>
+        <p class="text-sc-black text-sm">Test what you know with these low-stakes practice questions.</p>
         <PracticeScenario questions={questions} client:load />
       </section>
     )}
@@ -195,7 +195,7 @@ const simulationModule = topic?.modules?.find((m) => m.type === 'simulation');
           </span>
           <h2 class="text-sc-navy font-lexend font-bold text-2xl">{simulationModule.title}</h2>
         </div>
-        <p class="text-sc-gray text-sm w-full">Practice the real thing in a safe, guided environment.</p>
+        <p class="text-sc-black text-sm w-full">Practice the real thing in a safe, guided environment.</p>
         {id === '1' && <ZoomJoinCall client:load />}
         {id === '2' && <ScamFraudSim client:load />}
       </section>

@@ -2,7 +2,7 @@
 import { supabase } from "../lib/supabase";
 import Layout from "../layouts/Layout.astro";
 
-const { data: topics, error } = await supabase.from("topics").select("*");
+const { data: topics, error } = await supabase.from("topics").select("*").order('id');
 
 if (error) {
 	console.error("error:", error);
